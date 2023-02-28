@@ -1,5 +1,6 @@
 from fila_base import FilaBase
 
+
 class FilaNormal(FilaBase):
     def gerasenhaatual(self) -> None:
         self.senha_atual = f'NM{self.codigo}'
@@ -9,7 +10,7 @@ class FilaNormal(FilaBase):
         self.gerasenhaatual()
         self.fila.append(self.senha_atual)
 
-    def chamacliente(self, caixa:int) -> str:
-        cliente_atual:str = self.fila.pop(0)
+    def chamacliente(self, caixa: int) -> str:
+        cliente_atual: str = self.fila.pop(0)
         self.clientesatendidos.append(cliente_atual)
         return(f'Cliente atual: {cliente_atual}, dirija-se ao caixa: {caixa}')
