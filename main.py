@@ -1,4 +1,4 @@
-from fila_normal import filanormal
+from fila_normal import FilaNormal
 from fila_prioritaria import FilaPrioritaria
 
 # fila_teste = filanormal()
