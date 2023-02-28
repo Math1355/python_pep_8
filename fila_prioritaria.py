@@ -1,25 +1,20 @@
-from fila_base import FilaBase
+from typing import Union
 
+from fila_base import FilaBase
+from constantes import CODIGO_PRIORITARIO
+from estatistica_resumida import EstatisticaResumida
+from estatistica_detalhada import EstatisticaDetalhada
+
+Classes = Union[EstatisticaResumida, EstatisticaDetalhada]
 
 class FilaPrioritaria(FilaBase):
     def gera_senha_atual(self) -> None:
-        self.senha_atual = f'PR{self.codigo}'
+        self.senha_atual = f'{CODIGO_PRIORITARIO}{self.codigo}'
 
     def chama_cliente(self, caixa: int) -> str:
         cliente_atual = self.fila.pop(0)
-        self.clientes_antendidos.append(cliente_atual)
+        self.clientes_atendidos.append(cliente_atual)
         return (f'Cliente atual: {cliente_atual}, dirija-se ao caixa: {caixa}')
 
-    def estatistica(self, dia: str, agencia: int, flag: str) -> dict:
-        if flag != 'detail':
-            estatistica = {f'{agencia}-{dia}': len(self.clientes_antendidos)}
-        else:
-            estatistica = {}
-            estatistica['dia'] = dia
-            estatistica['agencia'] = agencia
-            estatistica['clientes_atendidos'] = self.clientes_antendidos
-            estatistica['quantidade_cleintes_atendidos'] = (
-                len(self.clientes_antendidos)
-            )
-
-        return estatistica
+    def estatistica(self, retorna_estatistica: Classes) -> dict:
+        return retorna_estatistica.roda_estatistica(self.clientes_atendidos)
